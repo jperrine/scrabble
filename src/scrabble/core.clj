@@ -14,12 +14,12 @@
 
 (defn possible-word? [letters word-two]
   (if (substring? (normalize word-two) letters)
-      (println word-two)))
+    word-two))
 
 (defn search-for-word [word]
-  (map #(possible-word? (normalize word) %) words))
+  (filter #(> (count %) 1) (map #(possible-word? (normalize word) %) words)))
 
 (defn -main [& args]
   (let [[options _ _] (cli args ["-w" "--word" "word to use"])
         word (:word options)]
-    (search-for-word word)))
+    (println (search-for-word word))))
